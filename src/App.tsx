@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Link } from "react-router-dom"
 import { Container } from 'react-bootstrap'
 import { Home } from './pages/Home'
 import { Store } from './pages/Store'
@@ -8,11 +8,20 @@ import { ShoppingCartProvider } from "./context/ShoppingCartContext"
 import { LineGraph } from "./components/LineChart"
 import { lineChartData } from "../src/data/FAKE_DATA";
 import trendDataArray from "../src/data/aggregated_data.json";
+import storeItems from "../src/data/response.json"
+import { ProductPage } from "./pages/ProductPage"
 
 
 function App() {
-  const lineGraphs  = trendDataArray.map((trendData, index) => {
-    const {name, date, price} = trendData;
+  const idArray = storeItems.map(storeItem => {
+    const { id } = storeItem;
+    return id;
+  });
+  // const productRoutes = idArray.map((id:number) => {
+  //   return <Link key={id} path="/product/:id" element={id} />
+  // })
+  const lineGraphs = trendDataArray.map((trendData, index) => {
+    const { name, date, price } = trendData;
     const lineGraphOptions = {
       plugins: {
         title: {
@@ -35,7 +44,7 @@ function App() {
       ]
     }
     return <LineGraph key={index} options={lineGraphOptions} data={lineGraphData} />
-})
+  })
   // const { name, date, price } = trendDataArray[0];
   // const lineGraphOptions = {
   //   plugins: {
@@ -68,11 +77,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/store" element={<Store />} />
           <Route path="/about" element={<About />} />
+          {/* {productRoutes} */}
+          <Route path="/product/:id" element={<ProductPage />} />
         </Routes>
-        <h1>Chart Example</h1>
-        <LineGraph options={lineChartData.options} data={lineChartData.data} />
+        {/* <h1>Chart Example</h1> */}
+        {/* <LineGraph options={lineChartData.options} data={lineChartData.data} /> */}
         {/* <LineGraph options={lineGraphOptions} data={lineGraphData} /> */}
-        {lineGraphs}
+        {/* {lineGraphs} */}
       </Container>
     </ShoppingCartProvider>
 

@@ -3,6 +3,7 @@ import { formatCurrency } from "../utilities/formatCurrency"
 import { useShoppingCart } from "../context/ShoppingCartContext"
 import { useState } from "react"
 import { LineGraph } from "./LineChart"
+import { useNavigate } from "react-router-dom"
 
 type StoreItemProps = {
     id: number,
@@ -12,32 +13,47 @@ type StoreItemProps = {
 }
 
 export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
+    const navigate = useNavigate();
     const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart()
-    const [viewTrend, setViewTrend] = useState(true);
+    // const [viewTrend, setViewTrend] = useState(true);
     const handleClick = () => {
-        setViewTrend(!viewTrend);
+        goToProduct(id)
+        // setViewTrend(!viewTrend);
     }
 
-    // const [isHovered, setIsHovered] = useState(false);
+    const goToProduct = (id: number) => {
+        navigate(`/product/${id}`);
+    }
+    const [cardHover, setCardHover] = useState(false);
     const quantity = getItemQuantity(id)
     return (
-        <Card className="h-100">
+        <Card
+            className="h-100"
+        >
             <Card.Img
                 variant="top"
                 src={img_urls[0]}
                 height="200px"
-                style={{ objectFit: "cover" }}
+                onMouseEnter={() => setCardHover(true)}
+                onMouseLeave={() => setCardHover(false)}
+                style={{
+                    objectFit: "cover",
+                    cursor: "pointer",
+                    opacity: cardHover ? 0.7 : 1, //adjust opacity on hover
+                    transition: "opacity 0.3s ease-in-out"
+                }}
+                onClick={() => handleClick()}
             />
             <Card.Body className="d-flex flex-column">
                 <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
                     <span className="fs-2">{name}</span>
                     <span className="ms-2 text-muted">{formatCurrency(price)}</span>
                 </Card.Title>
-                {viewTrend ? (
+                {/* {viewTrend ? (
                     // replace image with the graph
                     // <LineGraph options={lineGraphOptions} data={lineGraphData} />
                     <img src="../public/imgs/line_graph.png" alt="plot" />
-                ): null}
+                ): null} */}
                 <div className="mt-auto">
                     {quantity === 0 ? (
                         <Button className="w-100" onClick={() => increaseCartQuantity(id)}>
@@ -57,9 +73,10 @@ export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
                         </Button>
                     </div>}
                 </div>
-                
+
                 <Button className="w-100" onClick={() => handleClick()}>
-                    {viewTrend ? "Close Price Trend" : "View Price Trend"}
+                    {/* {viewTrend ? "Close Price Trend" : "View Price Trend"} */}
+                    {"View Product Details"}
                 </Button>
             </Card.Body>
         </Card>
