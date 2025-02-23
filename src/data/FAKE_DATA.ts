@@ -1,15 +1,15 @@
 export const lineChartData = {
-    "options": {
-        // plugin: {
-        //     title: {
-        //         display: true,
-        //         text: 'Custom Chart Title',
-        //         padding: {
-        //             top: 10,
-        //             bottom: 30
-        //         }
-        //     }
-        // }
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Custom Chart Title',
+                padding: {
+                    top: 10,
+                    bottom: 30
+                }
+            }
+        }
     },
     data: {
         labels: [
