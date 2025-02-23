@@ -38,24 +38,8 @@ interface LineProps {
   }
   
 export const LineGraph = ({options, data}: LineProps) => {
-// export function LineGraph({options, data}:LineProps) {
-    // const options: ChartOptions<'line'> = {
-        // plugin: {
-        //     title: {
-        //         display: true,
-        //         text: 'Custom Chart Title',
-        //         padding: {
-        //             top: 10,
-        //             bottom: 30
-        //         }
-        //     }
-        // }
-    // };
-    // const data = {};
     return (
-        <div>
-            <Line options={options} data={data} />
-        </div>
+        <Line options={options} data={data} />
     )
     
 }

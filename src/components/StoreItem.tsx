@@ -33,6 +33,7 @@ export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
                     <span className="ms-2 text-muted">{formatCurrency(price)}</span>
                 </Card.Title>
                 {viewTrend ? (
+                    // replace image with the graph
                     <img src="../public/imgs/line_graph.png" alt="plot" />
                 ): null}
                 <div className="mt-auto">
