@@ -1,9 +1,9 @@
 import { Button, Stack } from "react-bootstrap"
 import { useShoppingCart } from "../context/ShoppingCartContext"
-import storeItems from "../data/response.json"
 import { formatCurrency } from "../utilities/formatCurrency"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import storeItems from "../data/response.json"
 
 type CartItemProps = {
     id: number

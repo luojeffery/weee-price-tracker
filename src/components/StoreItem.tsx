@@ -2,7 +2,6 @@ import { Button, Card } from "react-bootstrap"
 import { formatCurrency } from "../utilities/formatCurrency"
 import { useShoppingCart } from "../context/ShoppingCartContext"
 import { useState } from "react"
-import { LineGraph } from "./LineChart"
 import { useNavigate } from "react-router-dom"
 
 type StoreItemProps = {
@@ -15,13 +14,7 @@ type StoreItemProps = {
 export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
     const navigate = useNavigate();
     const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart()
-    // const [viewTrend, setViewTrend] = useState(true);
     const handleClick = () => {
-        goToProduct(id)
-        // setViewTrend(!viewTrend);
-    }
-
-    const goToProduct = (id: number) => {
         navigate(`/product/${id}`);
     }
     const [cardHover, setCardHover] = useState(false);
@@ -49,11 +42,6 @@ export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
                     <span className="fs-2">{name}</span>
                     <span className="ms-2 text-muted">{formatCurrency(price)}</span>
                 </Card.Title>
-                {/* {viewTrend ? (
-                    // replace image with the graph
-                    // <LineGraph options={lineGraphOptions} data={lineGraphData} />
-                    <img src="../public/imgs/line_graph.png" alt="plot" />
-                ): null} */}
                 <div className="mt-auto">
                     {quantity === 0 ? (
                         <Button className="w-100" onClick={() => increaseCartQuantity(id)}>
@@ -75,7 +63,6 @@ export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
                 </div>
 
                 <Button className="w-100" onClick={() => handleClick()}>
-                    {/* {viewTrend ? "Close Price Trend" : "View Price Trend"} */}
                     {"View Product Details"}
                 </Button>
             </Card.Body>

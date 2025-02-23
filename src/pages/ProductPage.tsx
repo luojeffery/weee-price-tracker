@@ -14,13 +14,6 @@ type ProductPageProps = {
 
 export function ProductPage() {
 
-    const idArray = storeItems.map(storeItem => {
-        const { id } = storeItem;
-        return id;
-    });
-    // const productRoutes = idArray.map((id:number) => {
-    //   return <Link key={id} path="/product/:id" element={id} />
-    // })
     const lineGraphs = trendDataArray.map((trendData, index) => {
         const { name, date, price } = trendData;
         const lineGraphOptions = {
@@ -59,14 +52,12 @@ export function ProductPage() {
     const product = productArray.find((p) => p.id === Number(id));
 
     if (!product) {
-        return <h2>Product not found</h2>
+        return <h2>Product not found ☹️</h2>
     }
     console.log(product);
 
     return (
-        <Card
-            className="h-100"
-        >
+        <Card className="h-100"        >
             <Card.Img
                 variant="top"
                 src={product.img_urls[0]}
@@ -77,9 +68,6 @@ export function ProductPage() {
                     <span className="ms-2 text-muted">{formatCurrency(product.price)}</span>
                 </Card.Title>
             </Card.Body>
-            {/* <p>Product Name: {product.name}</p>
-            <p>Product Id: {product.id}</p>
-            <p>Product Price: {product.price}</p> */}
             {lineGraphs[product.index]}
         </Card>
     )

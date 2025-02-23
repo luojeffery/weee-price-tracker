@@ -11,8 +11,6 @@ import {
     Legend,
 } from "chart.js";
 
-import revenueData from "../data/revenueData.json";
-
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -23,15 +21,6 @@ ChartJS.register(
     Legend
 );
 
-// const lineChartData = {
-//     labels: data[0].date,
-//     datasets: [
-//         {
-//             label: "Price (USD)",
-//             data: data[0].price
-//         },
-//     ],
-// }
 interface LineProps {
     options: ChartOptions<'line'>;
     data: ChartData<'line'>;

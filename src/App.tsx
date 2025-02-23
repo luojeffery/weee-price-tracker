@@ -17,9 +17,6 @@ function App() {
     const { id } = storeItem;
     return id;
   });
-  // const productRoutes = idArray.map((id:number) => {
-  //   return <Link key={id} path="/product/:id" element={id} />
-  // })
   const lineGraphs = trendDataArray.map((trendData, index) => {
     const { name, date, price } = trendData;
     const lineGraphOptions = {
@@ -45,28 +42,6 @@ function App() {
     }
     return <LineGraph key={index} options={lineGraphOptions} data={lineGraphData} />
   })
-  // const { name, date, price } = trendDataArray[0];
-  // const lineGraphOptions = {
-  //   plugins: {
-  //     title: {
-  //       display: true,
-  //       text: name,
-  //       padding: {
-  //         top: 10,
-  //         bottom: 30
-  //       }
-  //     }
-  //   }
-  // }
-  // const lineGraphData = {
-  //   labels: date,
-  //   datasets: [{
-  //     label: "Price (USD)",
-  //     data: price,
-  //     borderColor: "rgb(75, 192, 192)"
-  //   }
-  //   ]
-  // }
 
   return (
 
@@ -77,7 +52,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/store" element={<Store />} />
           <Route path="/about" element={<About />} />
-          {/* {productRoutes} */}
           <Route path="/product/:id" element={<ProductPage />} />
         </Routes>
         {/* <h1>Chart Example</h1> */}
