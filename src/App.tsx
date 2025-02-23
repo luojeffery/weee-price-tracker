@@ -11,7 +11,7 @@ import trendDataArray from "../src/data/aggregated_data.json";
 
 
 function App() {
-  const lineGraphs  = trendDataArray.map(trendData => {
+  const lineGraphs  = trendDataArray.map((trendData, index) => {
     const {name, date, price} = trendData;
     const lineGraphOptions = {
       plugins: {
@@ -34,7 +34,7 @@ function App() {
       }
       ]
     }
-    return <LineGraph options={lineGraphOptions} data={lineGraphData} />
+    return <LineGraph key={index} options={lineGraphOptions} data={lineGraphData} />
 })
   // const { name, date, price } = trendDataArray[0];
   // const lineGraphOptions = {

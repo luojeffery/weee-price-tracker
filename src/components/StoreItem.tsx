@@ -2,6 +2,7 @@ import { Button, Card } from "react-bootstrap"
 import { formatCurrency } from "../utilities/formatCurrency"
 import { useShoppingCart } from "../context/ShoppingCartContext"
 import { useState } from "react"
+import { LineGraph } from "./LineChart"
 
 type StoreItemProps = {
     id: number,
@@ -34,6 +35,7 @@ export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
                 </Card.Title>
                 {viewTrend ? (
                     // replace image with the graph
+                    // <LineGraph options={lineGraphOptions} data={lineGraphData} />
                     <img src="../public/imgs/line_graph.png" alt="plot" />
                 ): null}
                 <div className="mt-auto">
