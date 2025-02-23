@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { LineGraph } from "../components/LineChart";
 import storeItems from "../../src/data/response.json"
 import trendDataArray from "../../src/data/aggregated_data.json";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
+import { useShoppingCart } from "../context/ShoppingCartContext"
 import { formatCurrency } from "../utilities/formatCurrency";
 
 type ProductPageProps = {
@@ -55,7 +56,9 @@ export function ProductPage() {
         return <h2>Product not found ☹️</h2>
     }
     console.log(product);
-
+    const navigate = useNavigate();
+    const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart()
+        const quantity = getItemQuantity(Number(id))
     return (
         <Card className="h-100"        >
             <Card.Img
@@ -67,6 +70,30 @@ export function ProductPage() {
                     <span className="fs-2">{product.name}</span>
                     <span className="ms-2 text-muted">{formatCurrency(product.price)}</span>
                 </Card.Title>
+                <div className="mt-auto">
+                    {quantity < 0 ? (
+                        <Button className="w-100" onClick={() => increaseCartQuantity(Number(id))}>
+                            + Add To Cart
+                        </Button>
+                    ) : <div className="d-flex align-items-center flex-column" style={{ gap: ".5rem" }}>
+                        <div className="d-flex align-items-center justify-content-center" style={{ gap: ".5rem" }}>
+                            <Button onClick={() => decreaseCartQuantity(Number(id))}>-</Button>
+                            <span className="fs-3">{quantity} in cart</span> 
+                            <Button onClick={() => increaseCartQuantity(Number(id))}>+</Button>
+                        </div>
+                        {(quantity > 0 ? 
+                        <Button
+                            onClick={() => removeFromCart(Number(id))}
+                            variant="danger"
+                            size="sm">
+                            Remove
+                        </Button> : null
+                        )}
+                        <Button 
+                        onClick={() => navigate(`/store`)}>Return to Results</Button>
+                    </div>}
+                </div>
+                
             </Card.Body>
             {lineGraphs[product.index]}
         </Card>
