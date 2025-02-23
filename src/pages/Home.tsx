@@ -1,19 +1,29 @@
 import { Row, Col } from "react-bootstrap"
-import storeItems from "../data/response.json"
 import { StoreItem } from "../components/StoreItem"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export function Home() {
-
     const [query, setQuery] = useState("");
-    const filteredItems = storeItems.filter(el => (el.name.toLowerCase().includes(query.toLowerCase())));
-    filteredItems.filter(item => item.name.includes(query));
+    const [storeItems, setStoreItems] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://127.0.0.1:8080/api/search_products/valentines day')
+            .then(r => {
+                setStoreItems(r.data);
+            })
+            .catch(error => {
+                console.error('Error fetching items:', error);
+            });
+    }, [])
+
+    const filteredItems = storeItems.filter(el =>
+        el.name.toLowerCase().includes(query.toLowerCase())
+    );
+
     return (
         <>
-            {/* <h1>Store</h1> */}
-
             <div className="d-flex justify-content-center align-items-center">
-                {/* <label>Filter by term: </label> */}
                 <input
                     type="text"
                     placeholder="Filter term"
@@ -29,12 +39,8 @@ export function Home() {
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"
                 >
-                    <title>
-                        Filter
-                    </title>
-                    <desc>
-                        A line styled icon from Orion Icon Library.
-                    </desc>
+                    <title>Filter</title>
+                    <desc>A line styled icon from Orion Icon Library.</desc>
                     <path
                         d="M2 2h59L36 34v20l-8 8V34L2 2z"
                         data-name="layer1"
@@ -53,7 +59,6 @@ export function Home() {
                     <Col key={item.id}>
                         <StoreItem {...item} />
                     </Col>
-
                 ))}
             </Row>
         </>

@@ -1,5 +1,6 @@
 import json
 import os
+import pandas as pd
 
 import requests
 from seleniumwire import webdriver
@@ -81,6 +82,7 @@ def get_auths():
     })
 
 
+
 @app.route("/api/search_products/<product>", methods=["GET"])
 def search_products(product):
     with open("auths.json", "r") as f:
@@ -98,7 +100,16 @@ def search_products(product):
         json_data = json.loads(response.text)
         products = json_data["pageProps"]["result"]["products"]
 
-    return jsonify(products)
+        return jsonify(products)
+    print(jsonify({
+        "Success", "no products found"
+    }))
+
+
+@app.route("/api/history_lookup/<product>", methods=["GET"])
+def history_lookup(product):
+    df = pd.read_csv("grocery price data.csv")
+    return jsonify([df["Month"].tolist(), df[product].tolist()])
 
 
 if __name__ == "__main__":

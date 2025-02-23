@@ -3,6 +3,7 @@ import { formatCurrency } from "../utilities/formatCurrency"
 import { useShoppingCart } from "../context/ShoppingCartContext"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import axios from "axios";
 
 type StoreItemProps = {
     id: number,
@@ -16,6 +17,11 @@ export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
     const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart()
     const handleClick = () => {
         navigate(`/product/${id}`);
+        const common_foods = ["Bananas", "Navel Oranges", "White Bread", "Tomatoes", "Whole Chicken", "Eggs", "Ground Beef", "Milk"]
+        if (common_foods.includes(product))
+            axios.get(`http://127.0.0.1:8080/api/history_lookup/${product}`).then(r => {
+                console.log(r.data)
+            })
     }
     const [cardHover, setCardHover] = useState(false);
     const quantity = getItemQuantity(id)
