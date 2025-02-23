@@ -8,7 +8,7 @@ type ShoppingCartProps = {
   isOpen: boolean
 }
 
-export function ShoppingCart({ isOpen }: ShoppingCartProps) {
+export function ShoppingCart({ isOpen, storeItems, setStoreItems }: ShoppingCartProps) {
   const { closeCart, cartItems } = useShoppingCart()
   return (
     <Offcanvas show={isOpen} onHide={closeCart} placement="end">
@@ -18,7 +18,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
       <Offcanvas.Body>
         <Stack gap={3}>
           {cartItems.map(item => (
-            <CartItem key={item.id} {...item} />
+            <CartItem key={item.id} {...item} storeItems={storeItems} setStoreItems={setStoreItems} />
           ))}
           <div className="ms-auto fw-bold fs-5">
             Total{" "}

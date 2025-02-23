@@ -3,19 +3,19 @@ import { StoreItem } from "../components/StoreItem"
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export function Home() {
+export function Home({ search, setSearch, storeItems, setStoreItems}) {
     const [query, setQuery] = useState("");
-    const [storeItems, setStoreItems] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://127.0.0.1:8080/api/search_products/valentines day')
+    useEffect(()=>{
+        axios.get(`http://127.0.0.1:8080/api/search_products/${search}`)
             .then(r => {
                 setStoreItems(r.data);
             })
             .catch(error => {
+                setStoreItems([])
                 console.error('Error fetching items:', error);
             });
-    }, [])
+    }, [search])
 
     const filteredItems = storeItems.filter(el =>
         el.name.toLowerCase().includes(query.toLowerCase())
@@ -57,7 +57,7 @@ export function Home() {
             <Row md={2} xs={1} lg={3} className="g-3">
                 {filteredItems.map(item => (
                     <Col key={item.id}>
-                        <StoreItem {...item} />
+                        <StoreItem {...item} storeItems={storeItems} setStoreItems={setStoreItems} />
                     </Col>
                 ))}
             </Row>

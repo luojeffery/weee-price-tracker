@@ -12,16 +12,11 @@ type StoreItemProps = {
     img_urls: string[],
 }
 
-export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
+export function StoreItem({ id, name, price, img_urls, storeItems, setStoreItems }: StoreItemProps) {
     const navigate = useNavigate();
     const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart()
     const handleClick = () => {
-        navigate(`/product/${id}`);
-        const common_foods = ["Bananas", "Navel Oranges", "White Bread", "Tomatoes", "Whole Chicken", "Eggs", "Ground Beef", "Milk"]
-        if (common_foods.includes(product))
-            axios.get(`http://127.0.0.1:8080/api/history_lookup/${product}`).then(r => {
-                console.log(r.data)
-            })
+        navigate(`/product/${id}`, { state: { items: storeItems } });
     }
     const [cardHover, setCardHover] = useState(false);
     const quantity = getItemQuantity(id)

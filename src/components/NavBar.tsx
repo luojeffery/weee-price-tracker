@@ -2,11 +2,10 @@ import { Button, Container, Nav, Navbar as NavbarBs } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
 import { useShoppingCart } from "../context/ShoppingCartContext"
 import { SearchBar } from "./SearchBar"
-
-export function Navbar() {
+export function Navbar({ search, setSearch }) {
     const { openCart, cartQuantity } = useShoppingCart()
     return (
-        <NavbarBs sticky="top" className="bg-white shadow-sm mb-3">
+        <NavbarBs  sticky="top" className="bg-white shadow-sm mb-3">
             <Container>
                 <Nav className="me-auto">
                     <Nav.Link to="/" as={NavLink}>
@@ -22,7 +21,7 @@ export function Navbar() {
                         About
                     </Nav.Link>
                 </Nav>
-                <SearchBar></SearchBar>
+                <SearchBar search={search} setSearch={setSearch}></SearchBar>
                 <Button
                     onClick={openCart}
                     style={{ width: "3rem", height: "3rem", position: "relative" }}

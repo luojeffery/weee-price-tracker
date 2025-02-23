@@ -1,19 +1,34 @@
 import {useEffect, useState} from "react"
 import axios from "axios";
+import {Button} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
-export function SearchBar() {
+export function SearchBar({ search, setSearch }) {
     const [query, setQuery] = useState("");
     useEffect(()=>{
         axios.get("http://127.0.0.1:8080/api/get_auths").then(r => {
             console.log(r.data)
         })
     }, [])
+    const navigate = useNavigate();
     const handleSearch = async () => {
-        axios.get(`http://127.0.0.1:8080/api/search_products/${query}`).then(r => {
-            console.log(r.data)
-        })
+        setSearch(query)
+        navigate(`/`)
     }
 
+
+
+    // if (!product) {
+    //     return <div style={{"textAlign": "center"}}>
+    //         <h2>☹️Product not found ☹️</h2>
+    //         <Button onClick={() => navigate(`/`)}>
+    //             Return to Results
+    //         </Button>
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSearch()
+        }
+    }
     return (
         <div style={{
             paddingLeft: "5%",
@@ -23,6 +38,7 @@ export function SearchBar() {
             type="text" 
             placeholder="Search"
             onChange={(e) =>setQuery(e.target.value)}
+            onKeyDown={handleKeyPress}
             value={query}
             style = {{
                 borderRadius: "20px",

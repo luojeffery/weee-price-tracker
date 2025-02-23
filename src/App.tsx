@@ -10,9 +10,13 @@ import { lineChartData } from "../src/data/FAKE_DATA";
 import trendDataArray from "../src/data/aggregated_data.json";
 import storeItems from "../src/data/response.json"
 import { ProductPage } from "./pages/ProductPage"
+import {useState} from "react";
 
 
 function App() {
+  const [search, setSearch] = useState("valentines day");
+  const [storeItems, setStoreItems] = useState([]);
+
   const idArray = storeItems.map(storeItem => {
     const { id } = storeItem;
     return id;
@@ -45,14 +49,14 @@ function App() {
 
   return (
 
-    <ShoppingCartProvider>
-      <Navbar />
+    <ShoppingCartProvider storeItems={storeItems} setStoreItems={setStoreItems}>
+      <Navbar search={search} setSearch={setSearch} />
       <Container className="mb-4">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home search={search} setSearch={setSearch} storeItems={storeItems} setStoreItems={setStoreItems}/>} />
           <Route path="/store" element={<Store />} />
           <Route path="/about" element={<About />} />
-          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/product/:id" element={<ProductPage storeItems={storeItems} setStoreItems={setStoreItems}/>} />
         </Routes>
         {/* <h1>Chart Example</h1> */}
         {/* <LineGraph options={lineChartData.options} data={lineChartData.data} /> */}

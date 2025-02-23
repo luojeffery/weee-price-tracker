@@ -3,13 +3,12 @@ import { useShoppingCart } from "../context/ShoppingCartContext"
 import { formatCurrency } from "../utilities/formatCurrency"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import storeItems from "../data/response.json"
 
 type CartItemProps = {
     id: number
     quantity: number
 }
-export function CartItem({ id, quantity }: CartItemProps) {
+export function CartItem({ id, quantity, storeItems, setStoreItems}: CartItemProps) {
     const navigate = useNavigate();
     const { removeFromCart } = useShoppingCart()
     const item = storeItems.find(i => i.id === id)
@@ -21,7 +20,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
     }
 
     const goToProduct = (id: number) => {
-        navigate(`/product/${id}`);
+        navigate(`/product/${id}`, { state: { items: storeItems } });
     }
 
     const [hover, setHover] = useState(false);

@@ -28,7 +28,7 @@ export function useShoppingCart() {
     return useContext(ShoppingCartContext)
 }
 
-export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
+export function ShoppingCartProvider({ children, storeItems, setStoreItems}: ShoppingCartProviderProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("shopping-cart", [])
 
@@ -95,7 +95,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
             }
         >
             {children}
-            < ShoppingCart isOpen={isOpen} />
+            < ShoppingCart isOpen={isOpen} storeItems={storeItems} setStoreItems={setStoreItems}/>
         </ShoppingCartContext.Provider >
     )
 }

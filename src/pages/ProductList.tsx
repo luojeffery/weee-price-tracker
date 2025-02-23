@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
-import storeItems from "../data/response.json"
+import {Link, useLocation} from "react-router-dom";
 
 export function ProductList() {
-    const idNameArray = storeItems.map(storeItem => {
+    const { state } = useLocation();
+
+    const idNameArray = state.items.map(storeItem => {
         const { id, name } = storeItem;
         return { id, name };
     });

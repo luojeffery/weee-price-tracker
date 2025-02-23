@@ -13,7 +13,7 @@ type ProductPageProps = {
     img_urls: string[],
 }
 
-export function ProductPage() {
+export function ProductPage({storeItems, setStoreItems}) {
 
     const lineGraphs = trendDataArray.map((trendData, index) => {
         const { name, date, price } = trendData;
