@@ -6,10 +6,10 @@ type StoreItemProps = {
     id: number,
     name: string,
     price: number,
-    imgUrl: string,
+    img_urls: string[],
 }
 
-export function StoreItem({ id, name, price, imgUrl }: StoreItemProps) {
+export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
     const {getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart} = useShoppingCart()
 
     const quantity = getItemQuantity(id)
@@ -17,7 +17,7 @@ export function StoreItem({ id, name, price, imgUrl }: StoreItemProps) {
         <Card className="h-100">
             <Card.Img
                 variant="top"
-                src={imgUrl}
+                src={img_urls[0]}
                 height="200px"
                 style={{ objectFit: "cover" }}
             />
