@@ -10,13 +10,17 @@ export function CartItem({ id, quantity }: CartItemProps) {
     const { removeFromCart } = useShoppingCart()
     const item = storeItems.find(i => i.id === id)
     if (item == null) return null
-
+    
     return (
-        <Stack direction="horizontal" gap={2} className="d-flex align-items-center">
+        <Stack 
+        
+        direction="horizontal" 
+        gap={2} 
+        className="d-flex align-items-center">
             <img
                 src={item.img_urls[0]}
                 style={{ width: "125px", height: "75px", objectFit: "cover" }}
-            />
+                />
             <div className="me-auto">
                 <div>
                     {item.name}{" "}
@@ -31,6 +35,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
                 </div>
             </div>
             <div> {formatCurrency(item.price * quantity)}</div>
+            
             <Button
                 variant="outline-danger"
                 size="sm"

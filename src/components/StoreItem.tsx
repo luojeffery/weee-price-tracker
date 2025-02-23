@@ -1,6 +1,7 @@
 import { Button, Card } from "react-bootstrap"
 import { formatCurrency } from "../utilities/formatCurrency"
 import { useShoppingCart } from "../context/ShoppingCartContext"
+import { useState } from "react"
 
 type StoreItemProps = {
     id: number,
@@ -10,8 +11,13 @@ type StoreItemProps = {
 }
 
 export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
-    const {getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart} = useShoppingCart()
+    const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart()
+    const [viewTrend, setViewTrend] = useState(true);
+    const handleClick = () => {
+        setViewTrend(!viewTrend);
+    }
 
+    // const [isHovered, setIsHovered] = useState(false);
     const quantity = getItemQuantity(id)
     return (
         <Card className="h-100">
@@ -26,6 +32,9 @@ export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
                     <span className="fs-2">{name}</span>
                     <span className="ms-2 text-muted">{formatCurrency(price)}</span>
                 </Card.Title>
+                {viewTrend ? (
+                    <img src="../public/imgs/line_graph.png" alt="plot" />
+                ): null}
                 <div className="mt-auto">
                     {quantity === 0 ? (
                         <Button className="w-100" onClick={() => increaseCartQuantity(id)}>
@@ -37,14 +46,18 @@ export function StoreItem({ id, name, price, img_urls }: StoreItemProps) {
                             <span className="fs-3">{quantity}</span> in cart
                             <Button onClick={() => increaseCartQuantity(id)}>+</Button>
                         </div>
-                        <Button 
-                        onClick={() => removeFromCart(id)}
-                        variant="danger" 
-                        size="sm">
+                        <Button
+                            onClick={() => removeFromCart(id)}
+                            variant="danger"
+                            size="sm">
                             Remove
                         </Button>
                     </div>}
                 </div>
+                
+                <Button className="w-100" onClick={() => handleClick()}>
+                    {viewTrend ? "Close Price Trend" : "View Price Trend"}
+                </Button>
             </Card.Body>
         </Card>
     )
