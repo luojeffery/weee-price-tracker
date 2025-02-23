@@ -1,11 +1,17 @@
-import { useState } from "react"
+import {useEffect, useState} from "react"
+import axios from "axios";
 
 export function SearchBar() {
-
     const [query, setQuery] = useState("");
-
-    const handleSearch = () => {
-        // TO DO
+    useEffect(()=>{
+        axios.get("http://127.0.0.1:8080/api/get_auths").then(r => {
+            console.log(r.data)
+        })
+    }, [])
+    const handleSearch = async () => {
+        axios.get(`http://127.0.0.1:8080/api/search_products/${query}`).then(r => {
+            console.log(r.data)
+        })
     }
 
     return (
