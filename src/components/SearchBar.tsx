@@ -26,8 +26,8 @@ export function SearchBar() {
             value={query}
             style = {{
                 borderRadius: "20px",
-                paddingLeft: "15px",
-                paddingRight: "15px"
+                paddingLeft: "10px",
+                paddingRight: "10px"
             }} 
             />
             <button 

@@ -10,7 +10,7 @@ export function Store() {
     filteredItems.filter(item => item.name.includes(query));
     return (
         <>
-            <h1>Store</h1>
+            {/* <h1>Store</h1> */}
 
             <div className="d-flex justify-content-center align-items-center">
                 {/* <label>Filter by term: </label> */}
